@@ -1,6 +1,16 @@
 .text
 .globl _start
 _start:
+    li.w       $t0, 0x0
+    movgr2cf   $fcc0, $t0
+    movgr2cf   $fcc1, $t0
+    movgr2cf   $fcc2, $t0
+    movgr2cf   $fcc3, $t0
+    movgr2cf   $fcc4, $t0
+    movgr2cf   $fcc5, $t0
+    movgr2cf   $fcc6, $t0
+    movgr2cf   $fcc7, $t0
+
     nop
 
 dump:
