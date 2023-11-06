@@ -223,6 +223,17 @@ def rd_si20(name):
     line += f"{name} $r{rd}, {si20}\n"
     return line
 
+def vd_vj_vk(name):
+    line = ""
+    rd, v1 = rand_reg()
+    line += f"li.d $rv{vd}, {v1}\n    "
+    rj, v2 = rand_reg()
+    line += f"li.d $rv{vj}, {v2}\n    "
+    rk, v3 = rand_reg()
+    line += f"li.d $v{vk}, {v3}\n    "
+    line += f"{name} $r{rd}, $r{rj}, $r{rk}\n"
+    return line
+
 insts = [
     { "name": "add.w",      "func": rd_rj_rk            },
     { "name": "add.d",      "func": rd_rj_rk            },

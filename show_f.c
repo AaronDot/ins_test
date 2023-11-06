@@ -1,7 +1,6 @@
 void print(char *s, int n);
 
-//unsigned long long regs[32 + 32 + 4 + 8 + 32];
-unsigned long long regs[3];
+unsigned long long regs[32 + 32 + 4 + 8];
 
 int my_strlen(char *s)
 {
@@ -105,29 +104,33 @@ int show(unsigned long long *regs)
     }
     return 0;
 #else
-    	char s[128], t[128], v[128], v1[128];
-	char c[128];
-        my_puts("rv");
-        my_itoa(s, 0, 10);
+    char s[20], t[20];
+    my_puts("f");
+    my_itoa(s, 0, 10);
+    my_puts(s);
+    my_puts(":\t");
+    my_itoa(s, regs[32], 16);
+    widen(t, s, 16);
+    my_puts(t);
+    my_puts("\n");
+    my_puts("fcsr");
+    my_itoa(s, 0, 10);
+    my_puts(s);
+    my_puts(":\t");
+    my_itoa(s, regs[64], 16);
+    widen(t, s, 8);
+    my_puts(t);
+    my_puts("\n");
+
+    for (int i = 0; i < 8; i++) {
+        my_puts("fcc");
+        my_itoa(s, i, 10);
         my_puts(s);
         my_puts(":\t");
-        my_itoa(t, regs[1], 16);
-        my_itoa(s, regs[0], 16);
-        //my_itoa(s, regs[77], 16);
-        //widen(t, s, 32);
-        widen(v1, t, 16);
-        my_puts(v1);
-        widen(v, s, 16);
-        my_puts(v);
+        my_itoa(s, regs[i + 68], 16);
+        my_puts(s);
         my_puts("\n");
-
-        my_puts("fcc");
-        my_itoa(c, 0, 10);
-        my_puts(c);
-        my_puts(":\t");
-        my_itoa(c, regs[3], 16);
-        my_puts(c);
-        my_puts("\n");
+    }
     return 0;
 #endif
 }
