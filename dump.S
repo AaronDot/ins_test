@@ -146,9 +146,33 @@ dump:
 
     la.local   $r21, regs
     vst        $vr0, $r21,  0
+    vst        $vr1, $r21,  16
+    vst        $vr2, $r21,  32
     movcf2gr   $t0,  $fcc0
     andi       $t0,  $t0, 1
-    st.d       $t0,  $r21, 16
+    movcf2gr   $t1,  $fcc1
+    andi       $t1,  $t1, 1
+    movcf2gr   $t2,  $fcc2
+    andi       $t2,  $t2, 1
+    movcf2gr   $t3,  $fcc3
+    andi       $t3,  $t3, 1
+    movcf2gr   $t4,  $fcc4
+    andi       $t4,  $t4, 1
+    movcf2gr   $t5,  $fcc5
+    andi       $t5,  $t5, 1
+    movcf2gr   $t6,  $fcc6
+    andi       $t6,  $t6, 1
+    movcf2gr   $t7,  $fcc7
+    andi       $t7,  $t7, 1
+    st.d       $t0,  $r21,  48
+    st.d       $t1,  $r21,  56
+    st.d       $t2,  $r21,  64
+    st.d       $t3,  $r21,  72
+    st.d       $t4,  $r21,  80
+    st.d       $t5,  $r21,  88
+    st.d       $t6,  $r21,  96
+    st.d       $t7,  $r21,  104
+    st.d       $r12, $r21,  112
     move       $a0,  $r21
     bl         show
 

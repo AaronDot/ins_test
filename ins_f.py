@@ -9,7 +9,7 @@ def write(line, file):
 
 def build(line):
     write(line, "tmp.S")
-    ret = os.system("gcc -nostdlib -static tmp.S show_f.c data_f.c -o tmp")
+    ret = os.system("gcc -nostdlib -static tmp.S show_f.c data.c -o tmp")
     if ret != 0:
         return ret
     ret = os.system("./tmp > want.txt 2>&1")
