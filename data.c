@@ -71,8 +71,10 @@ const long fj_l[] = {
     -347856,    0x80000000, 0xfffffff,  23,
 };
 
+//0x0484111006861918ull, 0xf090c140f292c948ull,
+   //0x0908911000000000ull, 0x0001000100010001ull,
 unsigned long long mem_j[32] = {
-   0x0000000000000000ull, 0x0000000000000000ull,
+   0x1211911000000019ull, 0xc241c140ffffffdbull,
    0xffffffffffffffffull, 0xffffffffffffffffull,
    0x0000000080000000ull, 0x8000000000000000ull,
    0x8000800080008000ull, 0x7fff7fff7fff7fffull,
@@ -108,3 +110,5 @@ unsigned long long mem_k[32] = {
    0x0403020114131211ull, 0x2423222134333231ull,
    0x8483828194939291ull, 0xa4a3a2a1b4b3b2b1ull,
 };
+
+unsigned long long out;

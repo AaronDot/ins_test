@@ -134,7 +134,7 @@ int show(unsigned long long *regs)
     }
 
         my_puts("r");
-        my_itoa(s, 12, 10);
+        my_itoa(s, 20, 10);
         my_puts(s);
         my_puts(":\t");
         my_itoa(s, regs[14], 16);

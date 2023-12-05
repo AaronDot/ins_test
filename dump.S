@@ -172,7 +172,7 @@ dump:
     st.d       $t5,  $r21,  88
     st.d       $t6,  $r21,  96
     st.d       $t7,  $r21,  104
-    st.d       $r12, $r21,  112
+    st.d       $r20, $r21,  112
     move       $a0,  $r21
     bl         show
 
