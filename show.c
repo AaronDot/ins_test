@@ -1,7 +1,7 @@
 void print(char *s, int n);
 
 //unsigned long long regs[32 + 32 + 4 + 8 + 32];
-unsigned long long regs[6 + 8 + 1];
+unsigned long long regs[6 + 8 + 1 + 4];
 
 int my_strlen(char *s)
 {
@@ -141,6 +141,18 @@ int show(unsigned long long *regs)
         widen(t, s, 16);
         my_puts(t);
         my_puts("\n");
+
+
+    for (int i = 0; i < 4; i++) {
+        my_puts("fcsr");
+        my_itoa(s, i, 10);
+        my_puts(s);
+        my_puts(":\t");
+        my_itoa(s, regs[i + 15], 16);
+        widen(t, s, 8);
+        my_puts(t);
+        my_puts("\n");
+    }
 
 //        my_puts("fcc");
 //        my_itoa(c, 0, 10);

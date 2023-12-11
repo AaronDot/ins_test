@@ -173,6 +173,14 @@ dump:
     st.d       $t6,  $r21,  96
     st.d       $t7,  $r21,  104
     st.d       $r20, $r21,  112
+    movfcsr2gr $t0,  $r0
+    movfcsr2gr $t1,  $r1
+    movfcsr2gr $t2,  $r2
+    movfcsr2gr $t3,  $r3
+    st.d       $t0,  $r21,  120
+    st.d       $t1,  $r21,  128
+    st.d       $t2,  $r21,  136
+    st.d       $t3,  $r21,  144
     move       $a0,  $r21
     bl         show
 
