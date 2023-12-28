@@ -90,8 +90,8 @@ def vd_rj(name, n):
 
 def cd_vj(name, n):
     line =  "la.local $t0, mem_k\n    "
-    line += f"vld $vr0, $t0,  0x8\n    "
-    line += f"{name} $fcc0, $vr0\n"
+    line += f"vld $vr0, $t0, 0\n    "
+    line += f"{name} $fcc1, $vr0\n"
     return line
 
 def vd_si13(name, n):
@@ -280,17 +280,14 @@ def vd_vj_ui1(name, n):
     line += f"{name} $vr0, $vr1, {ui1}\n"
     return line
 
-def vd_vj_vk_f(name, n):
-    line =  "la.local $t0, datad\n    "
-    line += f"vld $vr1, $t0, {0x8 * n}\n    "
-    line += f"vld $vr2, $t0, {0x8 * (n+1)}\n    "
+def vd_vj_vk_s(name, n):
+    line =  "la.local $t0, dataf\n    "
+    line += f"vld $vr1, $t0, {0x8 * 2}\n    "
+    line += f"vld $vr2, $t0, {0x8 * 3}\n    "
     line += f"{name} $vr0, $vr1, $vr2\n"
     return line
 
 insts = [
-
-
-
 ###########Vector integer arithmetic insns
    # { "name": "vadd.b",           "func": vd_vj_vk  },
    # { "name": "vadd.h",           "func": vd_vj_vk  },
@@ -721,7 +718,7 @@ insts = [
    # { "name": "vbitrevi.d",          "func": vd_vj_ui6 },
 
 ###########Vector Floating-point Operation insns
-   # { "name": "vfadd.s",           "func": vd_vj_vk_f },
+   # { "name": "vfadd.s",           "func": vd_vj_vk_s },
 
 
 ################Vector comparison and selection insns 
@@ -769,10 +766,10 @@ insts = [
    # { "name": "vbitseli.b",       "func": vd_vj_ui8   },
    # { "name": "vseteqz.v",        "func": cd_vj       },
    # { "name": "vsetnez.v",        "func": cd_vj       },
-   # { "name": "vsetanyeqz.b",     "func": cd_vj       },
-   # { "name": "vsetanyeqz.h",     "func": cd_vj       },
-   # { "name": "vsetanyeqz.w",     "func": cd_vj       },
-   # { "name": "vsetanyeqz.d",     "func": cd_vj       },
+    { "name": "vsetanyeqz.b",     "func": cd_vj       },
+    { "name": "vsetanyeqz.h",     "func": cd_vj       },
+    { "name": "vsetanyeqz.w",     "func": cd_vj       },
+    { "name": "vsetanyeqz.d",     "func": cd_vj       },
    # { "name": "vsetallnez.b",     "func": cd_vj       },
    # { "name": "vsetallnez.h",     "func": cd_vj       },
    # { "name": "vsetallnez.w",     "func": cd_vj       },
@@ -858,7 +855,7 @@ insts = [
    # { "name": "vstelm.d",         "func": vd_rj_si8_idx },
 ]
 
-n = 30
+n = 29
 for inst in insts:
     if not test(inst["name"], inst["func"], n):
         print(f"{inst['name']} failed")
