@@ -181,6 +181,9 @@ dump:
     st.d       $t1,  $r21,  128
     st.d       $t2,  $r21,  136
     st.d       $t3,  $r21,  144
+    xvst       $xr0, $r21,  152
+    xvst       $xr1, $r21,  184
+    xvst       $xr2, $r21,  216
     move       $a0,  $r21
     bl         show
 
