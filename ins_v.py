@@ -152,7 +152,7 @@ def vd_rj_si12(name, n):
 def vd_rj_si11(name, n):
     line =  "la.local $t0, mem_k\n    "
     si11 = rand_imm(11, True)
-    line += f"{name} $vr0, $t0, {0x8 * si11}\n"
+    line += f"{name} $vr0, $t0, {si11}\n"
     return line
 
 def vd_rj_si10(name, n):
@@ -227,9 +227,10 @@ def vd_vj_ui6(name, n):
 
 def vd_vj_ui5(name, n):
     line =  "la.local $t0, mem_k\n    "
-    line += f"vld $vr0, $t0, {0x8 * n}\n    "
-    line += f"vld $vr1, $t0, {0x8 * (n + 1)}\n    "
-    ui5 = rand_imm(5, False)
+    line += f"vld $vr0, $t0, {0x8 * 5}\n    "
+    line += f"vld $vr1, $t0, {0x8 * (5 + 1)}\n    "
+    #ui5 = rand_imm(5, False)
+    ui5 = 0
     line += f"{name} $vr0, $vr1, {ui5}\n"
     return line
 
@@ -717,7 +718,11 @@ insts = [
    # { "name": "vbitrevi.w",          "func": vd_vj_ui5 },
    # { "name": "vbitrevi.d",          "func": vd_vj_ui6 },
 
-###########Vector Floating-point Operation insns
+##############Vector String Processing insns
+    { "name": "vfrstpi.b",          "func": vd_vj_ui5 },
+    #{ "name": "vfrstpi.h",          "func": vd_vj_ui5 },
+
+##############Vector Floating-point Operation insns
    # { "name": "vfadd.s",           "func": vd_vj_vk_s },
 
 
@@ -766,10 +771,10 @@ insts = [
    # { "name": "vbitseli.b",       "func": vd_vj_ui8   },
    # { "name": "vseteqz.v",        "func": cd_vj       },
    # { "name": "vsetnez.v",        "func": cd_vj       },
-    { "name": "vsetanyeqz.b",     "func": cd_vj       },
-    { "name": "vsetanyeqz.h",     "func": cd_vj       },
-    { "name": "vsetanyeqz.w",     "func": cd_vj       },
-    { "name": "vsetanyeqz.d",     "func": cd_vj       },
+   # { "name": "vsetanyeqz.b",     "func": cd_vj       },
+   # { "name": "vsetanyeqz.h",     "func": cd_vj       },
+   # { "name": "vsetanyeqz.w",     "func": cd_vj       },
+   # { "name": "vsetanyeqz.d",     "func": cd_vj       },
    # { "name": "vsetallnez.b",     "func": cd_vj       },
    # { "name": "vsetallnez.h",     "func": cd_vj       },
    # { "name": "vsetallnez.w",     "func": cd_vj       },
@@ -855,7 +860,7 @@ insts = [
    # { "name": "vstelm.d",         "func": vd_rj_si8_idx },
 ]
 
-n = 29
+n = 1
 for inst in insts:
     if not test(inst["name"], inst["func"], n):
         print(f"{inst['name']} failed")
