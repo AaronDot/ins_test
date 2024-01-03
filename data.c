@@ -159,4 +159,4 @@ unsigned long long data16[] = {
 
 #define EPS 0.000001
 
-unsigned long long out;
+unsigned long long out[2];

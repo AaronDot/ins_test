@@ -188,7 +188,8 @@ def vd_rj_si10(name, n):
 
 def vd_rj_si9(name, n):
     line =  "la.local $t0, mem_k\n    "
-    si9 = rand_imm(9, True)
+    #si9 = rand_imm(9, True)
+    si9 = 8
     line += f"{name} $vr0, $t0, {si9}\n"
     return line
 
@@ -321,16 +322,16 @@ def vd_vj_vk_s(name, n):
     return line
 
 insts = [
-    { "name": "xvmin.bu",          "func": xd_xj_xk  },
-    { "name": "xvreplgr2vr.b",     "func": xd_rj       },
-    { "name": "xvmax.bu",          "func": xd_xj_xk  },
-    { "name": "xvseq.b",           "func": xd_xj_xk  },
-    { "name": "xvxor.v",           "func": xd_xj_xk  },
-    { "name": "xvsetanyeqz.b",     "func": cd_xj       },
-    { "name": "xvseteqz.v",        "func": cd_xj       },
-    { "name": "xvpickve.w",        "func": xd_xj_ui3       },
-    { "name": "xvpermi.q",         "func": xd_xj_ui3       },
-    { "name": "xvmsknz.b",         "func": xd_xj     },
+   # { "name": "xvmin.bu",          "func": xd_xj_xk  },
+   # { "name": "xvreplgr2vr.b",     "func": xd_rj       },
+   # { "name": "xvmax.bu",          "func": xd_xj_xk  },
+   # { "name": "xvseq.b",           "func": xd_xj_xk  },
+   # { "name": "xvxor.v",           "func": xd_xj_xk  },
+   # { "name": "xvsetanyeqz.b",     "func": cd_xj       },
+   # { "name": "xvseteqz.v",        "func": cd_xj       },
+   # { "name": "xvpickve.w",        "func": xd_xj_ui3       },
+   # { "name": "xvpermi.q",         "func": xd_xj_ui3       },
+   # { "name": "xvmsknz.b",         "func": xd_xj     },
 
    # { "name": "vadd.b",           "func": vd_vj_vk  },
    # { "name": "vadd.b",           "func": vd_vj_vk  },
@@ -344,7 +345,7 @@ insts = [
    # { "name": "vxor.v",           "func": vd_vj_vk  },
    # { "name": "vorn.v",           "func": vd_vj_vk  },
    # { "name": "vnori.b",          "func": vd_vj_ui8 },
-   # { "name": "vfrstpi.b",          "func": vd_vj_ui5 },
+   # { "name": "vfrstpi.b",        "func": vd_vj_ui5 },
    # { "name": "vseq.b",           "func": vd_vj_vk    },
    # { "name": "vseqi.b",          "func": vd_vj_si5   },
    # { "name": "vslt.b",           "func": vd_vj_vk    },
@@ -358,7 +359,7 @@ insts = [
    # { "name": "vshuf.b",          "func": vd_vj_vk_va },
    # { "name": "vldrepl.h",        "func": vd_rj_si11    },
    # { "name": "vldrepl.d",        "func": vd_rj_si9     },
-   # { "name": "vstelm.b",         "func": vd_rj_si8_idx },
+    { "name": "vstelm.b",         "func": vd_rj_si8_idx },
    # { "name": "vstelm.h",         "func": vd_rj_si8_idx },
    # { "name": "vstelm.w",         "func": vd_rj_si8_idx },
    # { "name": "vstelm.d",         "func": vd_rj_si8_idx },
