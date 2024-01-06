@@ -2,14 +2,14 @@ import os
 import numpy as np
 
 def write(line, file):
-    with open("dump.S", "r") as input:
+    with open("dump_i.S", "r") as input:
         text = input.read()
         with open(file, "w") as output:
             output.write(text.replace("nop\n", line))
 
 def build(line):
     write(line, "tmp.S")
-    ret = os.system("gcc -nostdlib -static tmp.S show.c -o tmp")
+    ret = os.system("gcc -nostdlib -static tmp.S show_i.c -o tmp")
     if ret != 0:
         return ret
     ret = os.system("./tmp > want.txt 2>&1")
@@ -258,9 +258,9 @@ insts = [
    # { "name": "mulw.d.w",   "func": rd_rj_rk            },
    # { "name": "mulw.d.wu",  "func": rd_rj_rk            },
    # { "name": "div.w",      "func": rd_rj_rk_32         },
-    { "name": "mod.w",      "func": rd_rj_rk_32         },
+   # { "name": "mod.w",      "func": rd_rj_rk_32         },
    # { "name": "div.wu",     "func": rd_rj_rk_32         },
-    { "name": "mod.wu",     "func": rd_rj_rk_32         },
+   # { "name": "mod.wu",     "func": rd_rj_rk_32         },
    # { "name": "div.d",      "func": rd_rj_rk            },
    # { "name": "mod.d",      "func": rd_rj_rk            },
    # { "name": "div.du",     "func": rd_rj_rk            },
@@ -293,7 +293,7 @@ insts = [
    # { "name": "srai.d",     "func": rd_rj_ui6           },
    # { "name": "rotri.w",    "func": rd_rj_ui5           },
    # { "name": "rotri.d",    "func": rd_rj_ui6           },
-   # { "name": "ext.w.h",    "func": rd_rj               },
+    { "name": "ext.w.h",    "func": rd_rj               },
    # { "name": "ext.w.b",    "func": rd_rj               },
    # { "name": "clo.w",      "func": rd_rj               },
    # { "name": "clz.w",      "func": rd_rj               },
