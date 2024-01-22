@@ -157,7 +157,7 @@ int show(unsigned long long *regs)
     }
 
     for (int i = 0; i < 3; i++) {
-        my_puts("xv");
+        my_puts("xr");
         my_itoa(s, i, 10);
         my_puts(s);
         my_puts(":\t");
