@@ -116,6 +116,7 @@ dump:
     vst        $vr0, $r21,  0
     vst        $vr1, $r21,  16
     vst        $vr2, $r21,  32
+    vst        $vr3, $r21,  48
     movcf2gr   $t0,  $fcc0
     andi       $t0,  $t0, 1
     movcf2gr   $t1,  $fcc1
@@ -132,26 +133,27 @@ dump:
     andi       $t6,  $t6, 1
     movcf2gr   $t7,  $fcc7
     andi       $t7,  $t7, 1
-    st.d       $t0,  $r21,  48
-    st.d       $t1,  $r21,  56
-    st.d       $t2,  $r21,  64
-    st.d       $t3,  $r21,  72
-    st.d       $t4,  $r21,  80
-    st.d       $t5,  $r21,  88
-    st.d       $t6,  $r21,  96
-    st.d       $t7,  $r21,  104
-    st.d       $r20, $r21,  112
+    st.d       $t0,  $r21,  64
+    st.d       $t1,  $r21,  72
+    st.d       $t2,  $r21,  80
+    st.d       $t3,  $r21,  88
+    st.d       $t4,  $r21,  96
+    st.d       $t5,  $r21,  104
+    st.d       $t6,  $r21,  112
+    st.d       $t7,  $r21,  120
+    st.d       $r20, $r21,  128
     movfcsr2gr $t0,  $r0
     movfcsr2gr $t1,  $r1
     movfcsr2gr $t2,  $r2
     movfcsr2gr $t3,  $r3
-    st.d       $t0,  $r21,  120
-    st.d       $t1,  $r21,  128
-    st.d       $t2,  $r21,  136
-    st.d       $t3,  $r21,  144
-    xvst       $xr0, $r21,  152
-    xvst       $xr1, $r21,  184
-    xvst       $xr2, $r21,  216
+    st.d       $t0,  $r21,  136
+    st.d       $t1,  $r21,  144
+    st.d       $t2,  $r21,  152
+    st.d       $t3,  $r21,  160
+    xvst       $xr0, $r21,  168
+    xvst       $xr1, $r21,  200
+    xvst       $xr2, $r21,  232
+    xvst       $xr3, $r21,  264
     move       $a0,  $r21
     bl         show
 
