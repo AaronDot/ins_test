@@ -57,14 +57,15 @@ def rand_imm(n, sign):
 
 def vd_vj_vk_t(name, n):
     line =  "la.local $t0, mem_j\n    "
-    line += f"vld $vr1, $t0, 0x0\n    "
-    line += f"vld $vr2, $t0, 0x8 * 2\n    "
+    line +=  "la.local $t1, mem_k\n    "
+    line += f"vld $vr1, $t0, {0x8 * 2}\n    "
+    line += f"vld $vr2, $t1, {0x8 * 0}\n    "
     line += f"{name} $vr0, $vr1, $vr2\n"
     return line
 
 def vd_vj_vk(name, n):
     line =  "la.local $t0, mem_k\n    "
-    line += f"vld $vr0, $t0, 0x40\n    "
+    #line += f"vld $vr0, $t0, 0x40\n    "
     line += f"vld $vr1, $t0, {0x8 * n}\n    "
     line += f"vld $vr2, $t0, {0x8 * (n+1)}\n    "
     line += f"{name} $vr0, $vr1, $vr2\n"
@@ -310,7 +311,16 @@ def vd_vj_ui7(name, n):
     line += f"vld $vr0, $t0, {0x8 * n}\n    "
     line += f"vld $vr1, $t0, {0x8 * (n + 1)}\n    "
     ui7 = rand_imm(7, False)
+    #print("ui7:  %d" %ui7)
     line += f"{name} $vr0, $vr1, {ui7}\n"
+    return line
+
+def xd_xj_ui7(name, n):
+    line =  "la.local $t0, mem_k\n    "
+    line += f"xvld $xr0, $t0, {0x8 * n}\n    "
+    line += f"xvld $xr1, $t0, {0x8 * (n + 1)}\n    "
+    ui7 = rand_imm(7, False)
+    line += f"{name} $xr0, $xr1, {ui7}\n"
     return line
 
 def vd_vj_ui6(name, n):
@@ -374,6 +384,22 @@ def vd_vj_ui4(name, n):
     line += f"vld $vr0, $t0, {0x8 * n}\n    "
     line += f"vld $vr1, $t0, {0x8 * (n + 1)}\n    "
     ui4 = rand_imm(4, False)
+    line += f"{name} $vr0, $vr1, {ui4}\n"
+    return line
+
+def _vd_vj_ui4(name, n):
+    line =  "la.local $t0, mem_j\n    "
+    line += f"vld $vr1, $t0, 0\n    "
+    #ui4 = rand_imm(4, False)
+    ui4=7
+    line += f"{name} $vr0, $vr1, {ui4}\n"
+    return line
+
+def _vd_vj_ui3(name, n):
+    line =  "la.local $t0, mem_j\n    "
+    line += f"vld $vr1, $t0, 0\n    "
+    #ui4 = rand_imm(4, False)
+    ui4=7
     line += f"{name} $vr0, $vr1, {ui4}\n"
     return line
 
@@ -443,8 +469,8 @@ def vd_vj_d(name, n):
 
 def vd_vj_vk_s(name, n):
     line =  "la.local $t0, dataf\n    "
-    line += f"vld $vr1, $t0, {0x8 * n}\n    "
-    line += f"vld $vr2, $t0, {0x8 * (n+1)}\n    "
+    line += f"vld $vr1, $t0, {0x8 * 0}\n    "
+    line += f"vld $vr2, $t0, {0x8 * (0+1)}\n    "
     line += f"{name} $vr0, $vr1, $vr2\n"
     return line
 
@@ -458,8 +484,16 @@ def vd_vj_vk_d(name, n):
 def vd_vj_vk_va_s(name, n):
     line =  "la.local $t0, dataf\n    "
     line += f"vld $vr1, $t0, {0x8 * 0}\n    "
-    line += f"vld $vr2, $t0, {0x8 * 1}\n    "
-    line += f"vld $vr3, $t0, {0x8 * 2}\n    "
+    line += f"vld $vr2, $t0, {0x8 * (0 + 1)}\n    "
+    line += f"vld $vr3, $t0, {0x8 * (0 + 2)}\n    "
+    line += f"{name} $vr0, $vr1, $vr2, $vr3 \n"
+    return line
+
+def vd_vj_vk_va_d(name, n):
+    line =  "la.local $t0, datad\n    "
+    line += f"vld $vr1, $t0, {0x8 * 0}\n    "
+    line += f"vld $vr2, $t0, {0x8 * 0}\n    "
+    line += f"vld $vr3, $t0, {0x8 * 0}\n    "
     line += f"{name} $vr0, $vr1, $vr2, $vr3 \n"
     return line
 
@@ -1153,6 +1187,78 @@ insts = [
    # { "name": "xvsrari.h",        "func": xd_xj_ui4     },
    # { "name": "xvsrari.w",        "func": xd_xj_ui5     },
    # { "name": "xvsrari.d",        "func": xd_xj_ui6     },
+   # { "name": "vsrln.b.h",        "func": vd_vj_vk      },
+   # { "name": "vsrln.h.w",        "func": vd_vj_vk      },
+   # { "name": "vsrln.w.d",        "func": vd_vj_vk      },
+   # { "name": "vsran.b.h",        "func": vd_vj_vk      },
+   # { "name": "vsran.h.w",        "func": vd_vj_vk      },
+   # { "name": "vsran.w.d",        "func": vd_vj_vk      },
+   # { "name": "xvsrln.b.h",       "func": xd_xj_xk      },
+   # { "name": "xvsrln.h.w",       "func": xd_xj_xk      },
+   # { "name": "xvsrln.w.d",       "func": xd_xj_xk      },
+   # { "name": "xvsran.b.h",       "func": xd_xj_xk      },
+   # { "name": "xvsran.h.w",       "func": xd_xj_xk      },
+   # { "name": "xvsran.w.d",       "func": xd_xj_xk      },
+   # { "name": "vsrlni.b.h",       "func": vd_vj_ui4     },
+   # { "name": "vsrlni.h.w",       "func": vd_vj_ui5     },
+   # { "name": "vsrlni.w.d",       "func": vd_vj_ui6     },
+   # { "name": "vsrlni.d.q",       "func": vd_vj_ui7     },
+   # { "name": "vsrani.b.h",       "func": vd_vj_ui4     },
+   # { "name": "vsrani.h.w",       "func": vd_vj_ui5     },
+   # { "name": "vsrani.w.d",       "func": vd_vj_ui6     },
+   # { "name": "vsrani.d.q",       "func": vd_vj_ui7     },
+   # { "name": "xvsrlni.b.h",      "func": xd_xj_ui4     },
+   # { "name": "xvsrlni.h.w",      "func": xd_xj_ui5     },
+   # { "name": "xvsrlni.w.d",      "func": xd_xj_ui6     },
+   # { "name": "xvsrlni.d.q",      "func": xd_xj_ui7     },
+   # { "name": "xvsrani.b.h",      "func": xd_xj_ui4     },
+   # { "name": "xvsrani.h.w",      "func": xd_xj_ui5     },
+   # { "name": "xvsrani.w.d",      "func": xd_xj_ui6     },
+   # { "name": "xvsrani.d.q",      "func": xd_xj_ui7     },
+   # { "name": "vsrlrn.b.h",       "func": vd_vj_vk      },
+   # { "name": "vsrlrn.h.w",       "func": vd_vj_vk      },
+   # { "name": "vsrlrn.w.d",       "func": vd_vj_vk      },
+   # { "name": "vsrarn.b.h",       "func": vd_vj_vk      },
+   # { "name": "vsrarn.h.w",       "func": vd_vj_vk      },
+   # { "name": "vsrarn.w.d",       "func": vd_vj_vk      },
+   # { "name": "xvsrlrn.b.h",      "func": xd_xj_xk      },
+   # { "name": "xvsrlrn.h.w",      "func": xd_xj_xk      },
+   # { "name": "xvsrlrn.w.d",      "func": xd_xj_xk      },
+   # { "name": "xvsrarn.b.h",      "func": xd_xj_xk      },
+   # { "name": "xvsrarn.h.w",      "func": xd_xj_xk      },
+   # { "name": "xvsrarn.w.d",      "func": xd_xj_xk      },
+   # { "name": "vsrlrni.b.h",      "func": vd_vj_ui4     },
+   # { "name": "vsrlrni.h.w",      "func": vd_vj_ui5     },
+   # { "name": "vsrlrni.w.d",      "func": vd_vj_ui6     },
+   # { "name": "vsrlrni.d.q",      "func": vd_vj_ui7     },
+   # { "name": "vsrarni.b.h",      "func": vd_vj_ui4     },
+   # { "name": "vsrarni.h.w",      "func": vd_vj_ui5     },
+   # { "name": "vsrarni.w.d",      "func": vd_vj_ui6     },
+   # { "name": "vsrarni.d.q",      "func": vd_vj_ui7     },
+   # { "name": "xvsrlrni.b.h",     "func": xd_xj_ui4     },
+   # { "name": "xvsrlrni.h.w",     "func": xd_xj_ui5     },
+   # { "name": "xvsrlrni.w.d",     "func": xd_xj_ui6     },
+   # { "name": "xvsrlrni.d.q",     "func": xd_xj_ui7     },
+   # { "name": "xvsrarni.b.h",     "func": xd_xj_ui4     },
+   # { "name": "xvsrarni.h.w",     "func": xd_xj_ui5     },
+   # { "name": "xvsrarni.w.d",     "func": xd_xj_ui6     },
+   # { "name": "xvsrarni.d.q",     "func": xd_xj_ui7     },
+
+   # { "name": "vssrln.b.h",       "func": vd_vj_vk_t },
+   # { "name": "vssrln.h.w",       "func": vd_vj_vk },
+   # { "name": "vssrln.w.d",       "func": vd_vj_vk },
+   # { "name": "vssran.b.h",       "func": vd_vj_vk },
+   # { "name": "vssran.h.w",       "func": vd_vj_vk },
+   # { "name": "vssran.w.d",       "func": vd_vj_vk },
+
+
+
+
+
+
+
+
+
 
    # { "name": "vclo.b",           "func": vd_vj         },
    # { "name": "vclo.h",           "func": vd_vj         },
@@ -1246,7 +1352,9 @@ insts = [
    # { "name": "vfmul.d",          "func": vd_vj_vk_d    },
    # { "name": "vfdiv.s",          "func": vd_vj_vk_s    },
    # { "name": "vfdiv.d",          "func": vd_vj_vk_d    },
-   # { "name": "vfmadd.s",         "func": vd_vj_vk_va_s }, #bad
+
+    { "name": "vfmadd.s",         "func": vd_vj_vk_va_s }, #bad
+   # { "name": "vfmadd.d",         "func": vd_vj_vk_va_d }, #bad
    # { "name": "vfmax.s",          "func": vd_vj_vk_s    },
    # { "name": "vfmax.d",          "func": vd_vj_vk_d    },
    # { "name": "vfmin.s",          "func": vd_vj_vk_s    },
@@ -1550,7 +1658,7 @@ insts = [
 ]
 
 #n = 28
-n = 22
+n = 10
 for inst in insts:
     if not test(inst["name"], inst["func"], n):
         print(f"{inst['name']} failed")

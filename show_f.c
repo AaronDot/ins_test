@@ -105,14 +105,16 @@ int show(unsigned long long *regs)
     return 0;
 #else
     char s[20], t[20];
+    for (int i = 0; i < 4; i++) {
     my_puts("f");
-    my_itoa(s, 0, 10);
+    my_itoa(s, i, 10);
     my_puts(s);
     my_puts(":\t");
-    my_itoa(s, regs[32], 16);
+    my_itoa(s, regs[i+32], 16);
     widen(t, s, 16);
     my_puts(t);
     my_puts("\n");
+    }
     my_puts("fcsr");
     my_itoa(s, 0, 10);
     my_puts(s);
